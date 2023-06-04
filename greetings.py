@@ -2,7 +2,7 @@
 import random
 import os
 
-dirty_words = open("/home/nandi/petProject/dirty_words.txt", "r")
+dirty_words = open("/home/nandi/petProject/greetings/dirty_words.txt", "r")
 content = dirty_words.readlines()
 dirty_words.close()
 
@@ -18,5 +18,4 @@ def createAlert():
 
     os.system("notify-send 'Üdvözöllek, " + line + "' 'Ideje dolgozni'")
     
-
 createAlert()
