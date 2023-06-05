@@ -13,14 +13,13 @@ def get_data(filename):
         content = json.load(file)
         return content
 
-def getDate():
+def get_date():
     current = datetime.datetime.now()
     return [current.year, current.month, current.day]
 
-def check_date(today):
-    date = datetime.datetime.now()
-    todays_date = [date.year, date.month, date.day]
-    data = get_data('data.json')
+def check_date(filename):
+    todays_date = get_date()
+    data = get_data(filename)
     stored_date = data['date']
 
     if todays_date != stored_date:
@@ -38,23 +37,16 @@ def getRandomLine(lines):
     line = lines[random.randint(0, 355)].strip()
     return line
 
-def todaysWord():
-    
-    if os.stat('/home/nandi/petProject/greetings/today.txt').st_size == 0:
-        today = open('/home/nandi/petProject/greetings/today.txt', 'r+')
-        today.write(getRandomLine(content))
-        today.close()
-
-    today = open('/home/nandi/petProject/greetings/today.txt', 'r')
-    word = today.readline()
-    today.close()
+def todaysWord(filename):
+    check_date(filename)
+    data = get_data(filename)
+    word = data['word']
     return word
 
 def createAlert():
-    word = todaysWord()
+    word = todaysWord('data.json')
 
     os.system("notify-send 'Üdvözöllek, " + word + "' 'Ideje dolgozni'")
     
     
 createAlert()
-check_date(today)
