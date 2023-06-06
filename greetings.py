@@ -3,6 +3,7 @@ import random
 import os
 import datetime
 import json
+import time
 
 dirty_words = open('/home/nandi/petProject/greetings/dirty_words.txt', 'r')
 content = dirty_words.readlines()
@@ -25,12 +26,11 @@ def check_date(filename):
     if todays_date != stored_date:
         data['date'] = todays_date
         set_new_date(data)
-
+        print(data['date'])
 
 def set_new_date(update):
-    with open('data.json', 'w') as data:
+    with open('/home/nandi/petProject/greetings/data.json', 'w') as data:
         json.dump(update, data)
-
 
 
 def getRandomLine(lines):
@@ -44,7 +44,9 @@ def todaysWord(filename):
     return word
 
 def createAlert():
-    word = todaysWord('data.json')
+    time.sleep(5)
+    word = todaysWord('/home/nandi/petProject/greetings/data.json')
+    # word = 'faszfütyi'
 
     os.system("notify-send 'Üdvözöllek, " + word + "' 'Ideje dolgozni'")
     
