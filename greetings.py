@@ -22,7 +22,7 @@ def check_date(filename):
     data = get_data(filename)
     stored_date = data['date']
 
-    if todays_date != stored_date:
+    if todays_date != stored_date or data['word'] == '':
         data['date'] = todays_date
         old_word = data['word']
         data['used'].append(old_word)
