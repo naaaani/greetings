@@ -25,16 +25,27 @@ def check_date(filename):
 
     if todays_date != stored_date:
         data['date'] = todays_date
-        set_new_date(data)
-        print(data['date'])
+        old_word = data['word']
+        data['used'].append(old_word)
+        data['word'] = get_new_word(data['used'])
+        update_data(data)
 
-def set_new_date(update):
+def get_new_word(used_words):
+    is_new = False
+    while is_new == False:
+        word = get_random_line()
+        if word not in used_words:
+            is_new = True
+
+    return word
+
+def update_data(update):
     with open('/home/nandi/petProject/greetings/data.json', 'w') as data:
         json.dump(update, data)
 
 
-def getRandomLine(lines):
-    line = lines[random.randint(0, 355)].strip()
+def get_random_line():
+    line = content[random.randint(0, 355)].strip()
     return line
 
 def todaysWord(filename):
@@ -44,7 +55,6 @@ def todaysWord(filename):
     return word
 
 def createAlert():
-    time.sleep(5)
     word = todaysWord('/home/nandi/petProject/greetings/data.json')
     # word = 'faszfütyi'
 
