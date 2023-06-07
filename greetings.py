@@ -3,7 +3,6 @@ import random
 import os
 import datetime
 import json
-import time
 
 dirty_words = open('/home/nandi/petProject/greetings/dirty_words.txt', 'r')
 content = dirty_words.readlines()
@@ -48,17 +47,16 @@ def get_random_line():
     line = content[random.randint(0, 355)].strip()
     return line
 
-def todaysWord(filename):
+def todays_word(filename):
     check_date(filename)
     data = get_data(filename)
     word = data['word']
     return word
 
-def createAlert():
-    word = todaysWord('/home/nandi/petProject/greetings/data.json')
-    # word = 'faszfütyi'
-
-    os.system("notify-send 'Üdvözöllek, " + word + "' 'Ideje dolgozni'")
+def create_alert():
+    word = todays_word('/home/nandi/petProject/greetings/data.json')
+    timeout_ms = 9999999
+    os.system(f"notify-send --expire-time {timeout_ms} 'Üdvözöllek, " + word + "' 'Ideje dolgozni'")
     
     
-createAlert()
+create_alert()
